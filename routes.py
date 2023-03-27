@@ -3,6 +3,8 @@ from comunidadeimpressionadora import app, database, bcrypt
 from comunidadeimpressionadora.forms import FormCriarConta, FormLogin, FormEditarPerfil
 from comunidadeimpressionadora.models import Usuario
 from flask_login import login_user, logout_user, current_user, login_required
+from PIL import Image
+import secrets, os
 
 
 
@@ -74,6 +76,32 @@ def perfil():
 def criar_post():
     return render_template('criarpost.html')
 
+def salvar_imagem(imagem):
+    codigo = secrets.token_hex(8)
+    nome, extensao = os.path.splitext(imagem.filename)
+    nome_arquivo = nome + codigo + extensao
+    #alterando nome do arquivo para impedir que sobreponha arquivos com o mesmo nome
+    caminho_completo = os.path.join(app.root_path, 'static/fotos_perfil', nome_arquivo)
+    #criando o caminho com o novo nome do arquivo para salvar
+    tamanho = (200, 200)
+    imagem_reduzida = Image.open(imagem)
+    imagem_reduzida.thumbnail(tamanho)
+    #reduzindo o tamanho da imagem
+    imagem_reduzida.save(caminho_completo)
+    return nome_arquivo
+
+#function melhorada pra evitar salvar varias fotos no banco de dados para o mesmo usuario (posteriormente criar um sistema de id de usuário imutável para aprimorar isso)
+def salvar_imagem2(imagem):
+    nome, extensao = os.path.splitext(imagem.filename)
+    nome_usuario = current_user.email
+    nome_arquivo = nome_usuario + extensao
+    caminho_completo = os.path.join(app.root_path, 'static/fotos_perfil', nome_arquivo)
+    tamanho = (200, 200)
+    imagem_reduzida = Image.open(imagem)
+    imagem_reduzida.thumbnail(tamanho)
+    imagem_reduzida.save(caminho_completo)
+    return nome_arquivo
+
 @app.route('/perfil/editar', methods=['GET', 'POST'])
 @login_required
 def editar_perfil():
@@ -83,6 +111,9 @@ def editar_perfil():
     if form.validate_on_submit():
         current_user.email = form.email.data
         current_user.username = form.username.data
+        if form.foto_perfil.data:
+            nome_imagem = salvar_imagem2(form.foto_perfil.data)
+            current_user.foto_perfil = nome_imagem
         database.session.commit()
         flash(f'Perfil atualizado com sucesso', 'alert-success')
         return redirect(url_for('perfil'))
