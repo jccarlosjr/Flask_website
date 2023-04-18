@@ -102,6 +102,16 @@ def salvar_imagem2(imagem):
     imagem_reduzida.save(caminho_completo)
     return nome_arquivo
 
+#Function para percorrer os cursos marcados e salvar em uma lista e ao fim dar join pra converter em uma string p/ armazenar no banco de dados
+def atualizar_cursos(form):
+    lista_cursos = []
+    for campo in form: #Percorre o campo com um for
+        if 'curso_' in campo.name: #Faz verificação nos campos
+            if campo.data: #Faz verificação se o campo foi validado
+                lista_cursos.append(campo.label.text)
+    return ';'.join(lista_cursos)
+
+
 @app.route('/perfil/editar', methods=['GET', 'POST'])
 @login_required
 def editar_perfil():
@@ -114,6 +124,7 @@ def editar_perfil():
         if form.foto_perfil.data:
             nome_imagem = salvar_imagem2(form.foto_perfil.data)
             current_user.foto_perfil = nome_imagem
+        current_user.cursos = atualizar_cursos(form)
         database.session.commit()
         flash(f'Perfil atualizado com sucesso', 'alert-success')
         return redirect(url_for('perfil'))
