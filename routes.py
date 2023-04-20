@@ -76,6 +76,7 @@ def perfil():
 def criar_post():
     return render_template('criarpost.html')
 
+#Meio merda, usar salvar_imagem2(), tá bem melhor
 def salvar_imagem(imagem):
     codigo = secrets.token_hex(8)
     nome, extensao = os.path.splitext(imagem.filename)
@@ -90,7 +91,7 @@ def salvar_imagem(imagem):
     imagem_reduzida.save(caminho_completo)
     return nome_arquivo
 
-#function melhorada pra evitar salvar varias fotos no banco de dados para o mesmo usuario (posteriormente criar um sistema de id de usuário imutável para aprimorar isso)
+#function melhorada pra evitar inflar o banco de dados com img (posteriormente criar um sistema de id de usuário com uma constante p/ aprimorar isso)
 def salvar_imagem2(imagem):
     nome, extensao = os.path.splitext(imagem.filename)
     nome_usuario = current_user.email
@@ -102,12 +103,12 @@ def salvar_imagem2(imagem):
     imagem_reduzida.save(caminho_completo)
     return nome_arquivo
 
-#Function para percorrer os cursos marcados e salvar em uma lista e ao fim dar join pra converter em uma string p/ armazenar no banco de dados
+#Function para percorrer o html e salvar em uma lista e ao fim dar join pra converter em uma string p/ armazenar no banco de dados
 def atualizar_cursos(form):
     lista_cursos = []
-    for campo in form: #Percorre o campo com um for
-        if 'curso_' in campo.name: #Faz verificação nos campos
-            if campo.data: #Faz verificação se o campo foi validado
+    for campo in form:
+        if 'curso_' in campo.name: 
+            if campo.data: #campo foi validado
                 lista_cursos.append(campo.label.text)
     return ';'.join(lista_cursos)
 
