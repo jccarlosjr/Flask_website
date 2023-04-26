@@ -61,6 +61,7 @@ def sair():
     flash('Logout feito com suceso', 'alert-success')
     return redirect(url_for('home'))
 
+
 @app.route('/perfil')
 @login_required
 def perfil():
@@ -68,6 +69,7 @@ def perfil():
     #Usando url_for para navegar no diretório fotos_perfil e passando o nome do arquivo como uma variável chamanto o atributo da classe Usuario dentro do arquivo models
     return render_template('perfil.html', foto_perfil=foto_perfil)
     #passando a variável foto perfil como argumento para ser acessado na página /perfil
+
 
 @app.route('/post/criar')
 @login_required
@@ -89,6 +91,7 @@ def salvar_imagem(imagem):
     imagem_reduzida.save(caminho_completo)
     return nome_arquivo
 
+
 #function melhorada pra evitar inflar o banco de dados com img (posteriormente criar um sistema de id de usuário com uma constante p/ aprimorar isso)
 def salvar_imagem2(imagem):
     nome, extensao = os.path.splitext(imagem.filename)
@@ -100,6 +103,7 @@ def salvar_imagem2(imagem):
     imagem_reduzida.thumbnail(tamanho)
     imagem_reduzida.save(caminho_completo)
     return nome_arquivo
+
 
 #Function para percorrer o html e salvar em uma lista e ao fim dar join pra converter em uma string p/ armazenar no banco de dados
 def atualizar_cursos(form):
@@ -133,7 +137,4 @@ def editar_perfil():
         form.email.data = current_user.email
         form.username.data = current_user.username
     #Preenchendo o campo vazio automaticamente quando der um GET na página
-
-
     return render_template('editarperfil.html', foto_perfil=foto_perfil, form=form)
-
