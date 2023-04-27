@@ -10,7 +10,8 @@ import secrets, os
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    posts = Post.query.order_by(Post.id.desc()) #Query em ordem decrescente pros pots novos subir na página
+    return render_template('home.html', posts=posts)
 
 
 @app.route('/contato')
