@@ -81,7 +81,7 @@ def criar_post():
         database.session.commit()
         flash('Post Criado com Sucesso', 'alert-success')
         return redirect(url_for('home'))
-    return render_template('criarpost.html')
+    return render_template('criarpost.html', form=form)
 
 #Meio merda, usar salvar_imagem2(), tá bem melhor
 def salvar_imagem(imagem):
