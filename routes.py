@@ -1,7 +1,7 @@
 from flask import render_template, request, redirect, flash, url_for
 from comunidadeimpressionadora import app, database, bcrypt
-from comunidadeimpressionadora.forms import FormCriarConta, FormLogin, FormEditarPerfil
-from comunidadeimpressionadora.models import Usuario
+from comunidadeimpressionadora.forms import FormCriarConta, FormLogin, FormEditarPerfil, FormCriarPost
+from comunidadeimpressionadora.models import Usuario, Post
 from flask_login import login_user, logout_user, current_user, login_required
 from PIL import Image
 import secrets, os
@@ -71,9 +71,16 @@ def perfil():
     #passando a variável foto perfil como argumento para ser acessado na página /perfil
 
 
-@app.route('/post/criar')
+@app.route('/post/criar', methods=['GET', 'POST'])
 @login_required
 def criar_post():
+    form = FormCriarPost()
+    if form.validate_on_submit():
+        post = Post(titulo=form.titulo.data, corpo=form.corpo.data, autor=current_user)
+        database.session.add(post)
+        database.session.commit()
+        flash('Post Criado com Sucesso', 'alert-success')
+        return redirect(url_for('home'))
     return render_template('criarpost.html')
 
 #Meio merda, usar salvar_imagem2(), tá bem melhor
