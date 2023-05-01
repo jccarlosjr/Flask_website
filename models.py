@@ -20,6 +20,8 @@ class Usuario(database.Model, UserMixin):
     posts = database.relationship('Post', backref='autor', lazy=True)
     cursos = database.Column(database.String, nullable=False, default='Não Informado')
 
+    def contar_posts(self):
+        return len(self.posts)
 
 #primary_key=True define como a chave primária no banco de dados
 #nullable=False impede que o campo esteja vazio
