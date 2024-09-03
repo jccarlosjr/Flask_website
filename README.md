@@ -17,7 +17,7 @@ Siga as etapas abaixo para configurar o ambiente de desenvolvimento:
 1. **Clone o repositório:**
 
    ```bash
-   git clone https://github.com/seu-usuario/flask-blog.git
+   git clone https://github.com/jccarlosjr/Flask_website.git
 
 2. **Navegue até o diretório do projeto:**
 
