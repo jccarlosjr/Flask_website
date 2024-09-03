@@ -24,7 +24,7 @@ Siga as etapas abaixo para configurar o ambiente de desenvolvimento:
    ```bash
    cd flask-blog
 
-3. **Clone o repositório:**
+3. **Crie e ative o ambiente virtual:**
 
    ```bash
    python -m venv venv
