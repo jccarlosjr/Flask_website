@@ -1,62 +1,54 @@
 # Flask Blog
 
-Este é um projeto de blog desenvolvido com Flask e Python. Ele permite que os usuários criem contas, façam login, editem seus perfis e publiquem posts no blog. Além disso, os usuários podem visualizar posts de outros usuários e excluir posts próprios.
+This is a blog project developed with Flask and Python. It allows users to create accounts, log in, edit their profiles, and publish blog posts. Additionally, users can view posts from other users and delete their own posts.
 
-## Requisitos
+## Requirements
 
-Antes de começar, certifique-se de ter o seguinte instalado:
+Before getting started, make sure you have the following installed:
 
-- Python 3.7 ou superior
-- pip (gerenciador de pacotes do Python)
-- Virtualenv (recomendado para criar um ambiente virtual isolado)
+- Python 3.7 or higher  
+- pip (Python package manager)  
+- Virtualenv (recommended for creating an isolated virtual environment)
 
-## Instalação
+## Installation
 
-Siga as etapas abaixo para configurar o ambiente de desenvolvimento:
+Follow the steps below to set up the development environment:
 
-1. **Clone o repositório:**
+1. Clone the repository:
 
-   ```bash
    git clone https://github.com/jccarlosjr/Flask_website.git
 
-2. **Navegue até o diretório do projeto:**
+2. Navigate to the project directory:
 
-   ```bash
    cd flask-blog
 
-3. **Crie e ative o ambiente virtual:**
+3. Create and activate the virtual environment:
 
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # No Windows use: venv\Scripts\activate
+   python -m venv venv  
+   source venv/bin/activate  # On Windows use: venv\Scripts\activate
 
-4. **Navegue até o diretório do projeto:**
+4. Install the dependencies:
 
-   ```bash
    pip install -r requirements.txt
 
-5. **Crie o banco de dados:**
+5. Create the database:
 
-   ```bash
    flask shell
 
-6. **No prompt do Python, execute:**
+6. In the Python prompt, run:
 
-   ```bash
-   from comunidadeimpressionadora import database
-   database.create_all()
+   from comunidadeimpressionadora import database  
+   database.create_all()  
    exit()
 
+7. Run the project:
 
-6. **Execute o projeto:**
-
-   ```bash
    flask run
 
-## Funcionalidades
+## Features
 
-- Cadastro e Login: Os usuários podem criar uma conta e fazer login.
-- Edição de Perfil: Os usuários podem editar suas informações de perfil e foto.
-- Criação e Edição de Posts: Os usuários podem criar e editar posts.
-- Exclusão de Posts: Os usuários podem excluir seus próprios posts.
-- Listagem de Usuários: Os usuários podem visualizar uma lista de todos os usuários cadastrados.
+- Sign Up and Login: Users can create an account and log in.  
+- Profile Editing: Users can update their profile information and profile picture.  
+- Post Creation and Editing: Users can create and edit posts.  
+- Post Deletion: Users can delete their own posts.  
+- User Listing: Users can view a list of all registered users.
